@@ -1,0 +1,35 @@
+# ── Flutter / Dart ──────────────────────────────────────────
+.dart_tool/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+*.g.dart
+*.freezed.dart
+
+# ── Python ──────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+*.pth
+*.ckpt
+*.pt
+
+# Backend runtime dirs (generated at runtime, never commit)
+neuromotion-backend/uploads/
+neuromotion-backend/outputs/
+
+# ── Secrets / Environment ───────────────────────────────────
+.env
+.env.*
+*.env
+
+# ── OS / Editor ─────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# ── Misc ────────────────────────────────────────────────────
+*.log
