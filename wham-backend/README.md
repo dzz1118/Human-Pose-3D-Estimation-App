@@ -5,7 +5,7 @@
 | Component | Location |
 |---|---|
 | Backend (FastAPI + WHAM) | WSL2 — Ubuntu 24.04 |
-| Frontend (React / Vue / …) | Windows host `E:\Capstone_app` |
+| Frontend (Flutter app) | Windows host `E:\Capstone_app\neuromotion` |
 | Backend listening address | `0.0.0.0:8000` |
 | Frontend Base URL for backend | `http://localhost:8000` |
 
@@ -46,7 +46,7 @@ After enabling, the frontend Base URL remains unchanged: `http://localhost:8000`
 
 ```bash
 # Run in WSL terminal
-cd /home/dz/WHAM
+cd <your-wham-path>
 
 # Activate your conda/venv environment (existing WHAM environment)
 conda activate wham   # or: source venv/bin/activate
@@ -60,7 +60,7 @@ pip install -r backend/requirements.txt
 ## Starting the Backend
 
 ```bash
-cd /home/dz/WHAM
+cd <your-wham-path>
 
 uvicorn backend.main:app \
     --host 0.0.0.0 \
@@ -104,45 +104,20 @@ Expected response:
 
 ## Frontend Configuration
 
-In your frontend project at `E:\Capstone_app`, set the API Base URL to:
+The frontend is a **Flutter app** located at `E:\Capstone_app\neuromotion`.
+
+The backend base URL is configured in one place:
 
 ```
-http://localhost:8000
+neuromotion/lib/services/api_service.dart
 ```
 
-### Example (React / Vite)
-
-In `.env.development`:
-
-```env
-VITE_API_BASE_URL=http://localhost:8000
+```dart
+static const String baseUrl = 'http://localhost:8000';
 ```
 
-Usage:
-
-```js
-const API = import.meta.env.VITE_API_BASE_URL;
-
-// Upload video
-const form = new FormData();
-form.append("file", videoFile);
-const { job_id } = await fetch(`${API}/process_video`, {
-    method: "POST",
-    body: form,
-}).then(r => r.json());
-
-// Poll for status
-const poll = setInterval(async () => {
-    const status = await fetch(`${API}/status/${job_id}`).then(r => r.json());
-    if (status.status === "done") {
-        clearInterval(poll);
-        // Access parsed results
-        const results = await fetch(`${API}/results/${job_id}`).then(r => r.json());
-        // Access rendered video
-        const videoUrl = `${API}${status.video_url}`;  // e.g. /files/{job_id}/output.mp4
-    }
-}, 3000);
-```
+Change this constant if the backend runs on a different host or port.
+The Flutter `ApiService` calls `/process_video`, `/status/{job_id}`, and `/results/{job_id}` using the async polling flow described in the API Quick Reference below.
 
 ---
 

@@ -47,7 +47,7 @@ from pydantic import BaseModel
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
-BASE_DIR   = Path(__file__).resolve().parent.parent   # /home/dz/WHAM
+BASE_DIR   = Path(__file__).resolve().parent.parent   # root of the WHAM repo
 UPLOAD_DIR = BASE_DIR / "backend" / "uploads"
 OUTPUT_DIR = BASE_DIR / "output" / "api_jobs"
 
